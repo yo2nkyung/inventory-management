@@ -13,10 +13,8 @@ This project demonstrates end-to-end development including frontend UI, backend 
 ### Dashboard Overview
 
 | Dashboard | Inventory |
-| :---: | :---: 
+| :---: | :---: |
 | ![Dashboard](./assets/dashboard_screenshot.png) | ![Inventory](./assets/inventory_page.png) |
-
-
 
 ## 🧭 Overview
 
@@ -87,7 +85,8 @@ The goal of this project is to design and implement a scalable inventory managem
 ---
 
 ## 📂 Project Structure
-```
+
+``` markdown
 root/
 ├── client/ # Next.js frontend
 └── server/ # Node.js backend + Prisma
@@ -99,19 +98,21 @@ root/
 
 ### 1️⃣ Clone repository
 
-```
+``` linux
 git clone <repo-url>
 ```
+
 ### 2️⃣ Setup Frontend
 
-```
+``` linux
 cd client
 npm install
 npm run dev
 ```
 
 ### 3️⃣ Setup Backend
-```
+
+```linux
 cd server
 npm install
 npx prisma migrate dev
@@ -121,7 +122,6 @@ npm run dev
 ### Environment Variables
 
 Create `.env` files based on: `.env.example`
-
 
 ---
 
