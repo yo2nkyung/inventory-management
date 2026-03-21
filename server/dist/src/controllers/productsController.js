@@ -20,6 +20,7 @@ const getProducts = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
             where: {
                 name: {
                     contains: search,
+                    mode: "insensitive",
                 },
             },
         });
@@ -45,6 +46,7 @@ const createProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* 
         res.status(201).json(product);
     }
     catch (error) {
+        console.error("POST /products error:", error);
         res.status(500).json({ message: "Error creating product" });
     }
 });

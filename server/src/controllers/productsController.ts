@@ -13,6 +13,7 @@ export const getProducts = async (
       where: {
         name: {
           contains: search,
+          mode: "insensitive",
         },
       },
     });
@@ -35,6 +36,7 @@ export const createProduct = async (req: Request, res: Response): Promise<void> 
       }});
       res.status(201).json(product);
   } catch (error) {
+    console.error("POST /products error:", error);
     res.status(500).json({ message: "Error creating product" });
   }
 };
