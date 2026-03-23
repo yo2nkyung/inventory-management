@@ -2,9 +2,12 @@
 
 A full-stack inventory management dashboard built with Next.js, Redux Toolkit, Node.js, Prisma, and AWS-focused architecture concepts.
 
-This project demonstrates end-to-end development including frontend UI, backend API design, database modeling, and full-stack integration.
+This project demonstrates end-to-end development including frontend UI, backend API design, database modeling, and cloud deployment.
 
-⚠️ This project is currently **work-in-progress** and actively being developed.
+💡 This project is actively being improved, with core features already deployed.
+
+## Live Demo
+[View Deployed App](https://main.d3uo79i1ztq862.amplifyapp.com/)
 
 ---
 
@@ -24,7 +27,7 @@ The goal of this project is to design and implement a scalable inventory managem
 - Product inventory management
 - API-driven frontend/backend architecture
 - Database schema design using Prisma ORM
-- Cloud-ready architecture (AWS-focused design)
+- Cloud deployment using AWS infrastructure
 
 ---
 
@@ -32,28 +35,38 @@ The goal of this project is to design and implement a scalable inventory managem
 
 ### ✅ Implemented
 
-- Dashboard visualization (charts implemented)
-- Frontend (Next.js) ↔ Backend (Node.js API) integration completed
-- Database schema and data modeling using Prisma
-- Basic API routing and controller structure
-- Redux Toolkit + RTK Query state/data management setup
+- Dashboard visualization
+- Inventory page UI
+- Frontend (Next.js) and backend/API integration
+- Prisma-based database modeling
+- Redux Toolkit + RTK Query for state and data fetching
+- AWS deployment with live demo
 
 ### 🚧 In Progress
-
-- Product creation functionality (currently debugging)
-- Inventory page development
-- Improved error handling and validation
+- Product creation / update flow improvements
+- Error handling and validation
 - UI refinements
 
-### 📌 Planned Features
+### 📌 Planned
 
-- Pagination & filtering for product list
+- Pagination and filtering
 - Authentication / role-based access
-- Cloud deployment (AWS EC2/RDS/S3)
-- API performance optimization
 - Logging and monitoring
+- Performance optimization
 
 ---
+
+## 🚀 Deployment
+
+### Frontend
+
+- AWS Amplify
+
+### Backend / Database
+
+- Node.js API (AWS)
+- Prisma ORM
+- AWS RDS
 
 ## 🏗 Architecture
 
@@ -75,11 +88,12 @@ The goal of this project is to design and implement a scalable inventory managem
 
 - Relational schema designed using Prisma models
 
-### Cloud (Planned)
+### Cloud
 
-- AWS EC2
-- AWS RDS
-- AWS S3
+- AWS EC2 (Backend hosting)
+- AWS RDS (Database)
+- AWS S3 (Storage)
+- AWS Amplify (Frontend hosting)
 - API Gateway
 
 ---
@@ -139,8 +153,8 @@ This project focuses on:
 
 ## 📈 Roadmap
 
-- [ ] Fix product creation bug
+- [x] Fix product creation bug
 - [ ] Complete inventory management page
 - [ ] Improve API validation
 - [ ] Add pagination/filtering
-- [ ] Deploy to AWS
+- [x] Deploy to AWS
