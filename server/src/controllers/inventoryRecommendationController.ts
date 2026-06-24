@@ -35,8 +35,8 @@ export const getInventoryRecommendations = async (
     }[] = [];
 
     for (const product of products) {
-      const totalSold = product.Sales.reduce<number>(
-        (sum, sale) => sum + sale.quantity,
+      const totalSold = product.Sales.reduce(
+        (sum: number, sale: { quantity: number }) => sum + sale.quantity,
         0,
       );
       const avgDailyConsumption = totalSold / analysisWindowDays;
