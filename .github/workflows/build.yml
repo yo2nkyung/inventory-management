@@ -29,6 +29,8 @@ jobs:
 
       - name: Generate Prisma client
         working-directory: server
+        env:
+          DATABASE_URL: postgresql://postgres:postgres@localhost:5432/inventorymanagement?schema=public
         run: npx prisma generate
 
       - name: Lint server
@@ -86,6 +88,8 @@ jobs:
 
       - name: Generate Prisma client
         working-directory: server
+        env:
+          DATABASE_URL: postgresql://postgres:postgres@localhost:5432/inventorymanagement?schema=public
         run: npx prisma generate
 
       - name: Apply Prisma migrations
