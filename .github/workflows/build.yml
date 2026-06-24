@@ -96,7 +96,7 @@ jobs:
           PORT: 8000
           DATABASE_URL: postgresql://postgres:postgres@localhost:5432/inventorymanagement?schema=public
         run: |
-          node dist/index.js > /tmp/inventory-api.log 2>&1 &
+          node dist/src/index.js > /tmp/inventory-api.log 2>&1 &
           SERVER_PID=$!
 
           cleanup() {
