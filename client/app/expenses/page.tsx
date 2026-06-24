@@ -22,6 +22,14 @@ type AggregatedData = {
   [category: string]: AggregatedDataItem;
 };
 
+const chartColors = [
+  "#2563eb",
+  "#16a34a",
+  "#ca8a04",
+  "#dc2626",
+  "#7c3aed",
+  "#0891b2",
+];
 
 const Expenses = () => {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -55,12 +63,13 @@ const Expenses = () => {
       .reduce((acc: AggregatedData, data: ExpenseByCategorySummary) => {
         const amount = parseInt(data.amount);
         if (!acc[data.category]) {
-          acc[data.category] = { name: data.category, amount: 0 };
-          acc[data.category].color = `#${Math.floor(
-            Math.random() * 16777215
-          ).toString(16)}`;
-          acc[data.category].amount += amount;
+          acc[data.category] = {
+            name: data.category,
+            amount: 0,
+            color: chartColors[Object.keys(acc).length % chartColors.length],
+          };
         }
+        acc[data.category].amount += amount;
         return acc;
       }, {});
 

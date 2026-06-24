@@ -11,9 +11,11 @@ const helmet_1 = __importDefault(require("helmet"));
 const morgan_1 = __importDefault(require("morgan"));
 /* ROUTE IMPORTS */
 const dashboardRoutes_1 = __importDefault(require("./routes/dashboardRoutes"));
+const healthRoutes_1 = __importDefault(require("./routes/healthRoutes"));
 const productRoutes_1 = __importDefault(require("./routes/productRoutes"));
 const userRoutes_1 = __importDefault(require("./routes/userRoutes"));
 const expenseRoutes_1 = __importDefault(require("./routes/expenseRoutes"));
+const inventoryRecommendationRoutes_1 = __importDefault(require("./routes/inventoryRecommendationRoutes"));
 /* CONFIGURATIONS */
 dotenv_1.default.config();
 const app = (0, express_1.default)();
@@ -25,10 +27,12 @@ app.use(body_parser_1.default.json());
 app.use(body_parser_1.default.urlencoded({ extended: false }));
 app.use((0, cors_1.default)());
 /* ROUTES */
+app.use("/health", healthRoutes_1.default); // http://localhost:8000/health
 app.use("/dashboard", dashboardRoutes_1.default); // http://localhost:8000/dashboard
 app.use("/products", productRoutes_1.default); // http://localhost:8000/products
 app.use("/users", userRoutes_1.default); // http://localhost:8000/users
 app.use("/expenses", expenseRoutes_1.default); // http://localhost:8000/expenses
+app.use("/inventory-recommendations", inventoryRecommendationRoutes_1.default); // http://localhost:8000/inventory-recommendations
 /* SERVER */
 const port = Number(process.env.PORT) || 3001;
 app.listen(port, "0.0.0.0", () => {

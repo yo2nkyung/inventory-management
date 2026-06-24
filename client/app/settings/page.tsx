@@ -2,6 +2,8 @@
 
 import React, { useState } from "react";
 import Header from "@/app/(components)/Header";
+import { useAppDispatch, useAppSelector } from "@/app/redux";
+import { setIsDarkMode } from "@/state";
 
 type UserSetting = {
   label: string;
@@ -13,11 +15,12 @@ const mockSettings: UserSetting[] = [
   { label: "Username", value: "john_doe", type: "text" },
   { label: "Email", value: "john.doe@example.com", type: "text" },
   { label: "Notification", value: true, type: "toggle" },
-  { label: "Dark Mode", value: false, type: "toggle" },
   { label: "Language", value: "English", type: "text" },
 ];
 
 const Settings = () => {
+  const dispatch = useAppDispatch();
+  const isDarkMode = useAppSelector((state) => state.global.isDarkMode);
   const [userSettings, setUserSettings] = useState<UserSetting[]>(mockSettings);
 
   const handleToggleChange = (index: number) => {
@@ -42,6 +45,26 @@ const Settings = () => {
             </tr>
           </thead>
           <tbody>
+            <tr className="hover:bg-blue-50">
+              <td className="py-2 px-4">Dark Mode</td>
+              <td className="py-2 px-4">
+                <label className="inline-flex relative items-center cursor-pointer">
+                  <input
+                    type="checkbox"
+                    className="sr-only peer"
+                    checked={isDarkMode}
+                    onChange={() => dispatch(setIsDarkMode(!isDarkMode))}
+                  />
+                  <div
+                    className="w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-blue-400 peer-focus:ring-4 
+                    transition peer-checked:after:translate-x-full peer-checked:after:border-white 
+                    after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white 
+                    after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all
+                    peer-checked:bg-blue-600"
+                  ></div>
+                </label>
+              </td>
+            </tr>
             {userSettings.map((setting, index) => (
               <tr className="hover:bg-blue-50" key={setting.label}>
                 <td className="py-2 px-4">{setting.label}</td>

@@ -48,7 +48,7 @@ function main() {
             "expenses.json",
             "expenseByCategory.json",
         ];
-        yield deleteAllData(orderedFileNames);
+        yield deleteAllData([...orderedFileNames].reverse());
         for (const fileName of orderedFileNames) {
             const filePath = path_1.default.join(dataDirectory, fileName);
             const jsonData = JSON.parse(fs_1.default.readFileSync(filePath, "utf-8"));

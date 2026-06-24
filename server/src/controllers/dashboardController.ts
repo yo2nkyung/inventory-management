@@ -1,7 +1,5 @@
 import { Request, Response } from "express";
-import { PrismaClient } from "@prisma/client";
-
-const prisma = new PrismaClient();
+import { prisma } from "../lib/prisma";
 
 export const getDashboardData = async (
   req: Request,
@@ -55,7 +53,7 @@ export const getDashboardData = async (
       expenseByCategorySummary,
     });
 
-  } catch (error) {
+  } catch {
     res.status(500).json({ message: "Error retrieving dashboard data" });
   }
 };

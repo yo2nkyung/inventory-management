@@ -1,4 +1,3 @@
-import { useRef } from "react";
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import {
   TypedUseSelectorHook,
@@ -13,6 +12,7 @@ import { setupListeners } from "@reduxjs/toolkit/query";
 import {
   persistStore,
   persistReducer,
+  type Persistor,
   FLUSH,
   REHYDRATE,
   PAUSE,
@@ -26,13 +26,16 @@ import createWebStorage from "redux-persist/lib/storage/createWebStorage";
 /* REDUX PERSISTENCE */
 const createNoopStorage = () => {
   return {
-    getItem(_key: any) {
+    getItem(_key: string) {
+      void _key;
       return Promise.resolve(null);
     },
-    setItem(_key: any, value: any) {
+    setItem(_key: string, value: string) {
+      void _key;
       return Promise.resolve(value);
     },
-    removeItem(_key: any) {
+    removeItem(_key: string) {
+      void _key;
       return Promise.resolve();
     },
   };
@@ -74,21 +77,37 @@ export type AppDispatch = AppStore["dispatch"];
 export const useAppDispatch = () => useDispatch<AppDispatch>();
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
 
+let store: AppStore | undefined;
+let persistor: Persistor | undefined;
+
+const getStore = () => {
+  if (!store) {
+    store = makeStore();
+    setupListeners(store.dispatch);
+  }
+
+  return store;
+};
+
+const getPersistor = () => {
+  if (!persistor) {
+    persistor = persistStore(getStore());
+  }
+
+  return persistor;
+};
+
 /* PROVIDER */
 export default function StoreProvider({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const storeRef = useRef<AppStore | null>(null);
-  if (!storeRef.current) {
-    storeRef.current = makeStore();
-    setupListeners(storeRef.current.dispatch);
-  }
-  const persistor = persistStore(storeRef.current);
+  const store = getStore();
+  const persistor = getPersistor();
 
   return (
-    <Provider store={storeRef.current}>
+    <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         {children}
       </PersistGate>

@@ -1,0 +1,143 @@
+name: Build
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: |
+            client/package-lock.json
+            server/package-lock.json
+
+      - name: Install server dependencies
+        working-directory: server
+        run: npm ci
+
+      - name: Lint server
+        working-directory: server
+        run: npm run lint
+
+      - name: Build server
+        working-directory: server
+        run: npm run build
+
+      - name: Install client dependencies
+        working-directory: client
+        run: npm ci
+
+      - name: Lint client
+        working-directory: client
+        run: npm run lint
+
+      - name: Build client
+        working-directory: client
+        run: npm run build
+
+  api-smoke:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: inventorymanagement
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres -d inventorymanagement"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: server/package-lock.json
+
+      - name: Install server dependencies
+        working-directory: server
+        run: npm ci
+
+      - name: Apply Prisma migrations
+        working-directory: server
+        env:
+          DATABASE_URL: postgresql://postgres:postgres@localhost:5432/inventorymanagement?schema=public
+        run: npx prisma migrate deploy
+
+      - name: Build server
+        working-directory: server
+        run: npm run build
+
+      - name: Start server
+        working-directory: server
+        env:
+          PORT: 8000
+          DATABASE_URL: postgresql://postgres:postgres@localhost:5432/inventorymanagement?schema=public
+        run: node dist/index.js &
+
+      - name: Wait for health endpoint
+        run: |
+          for i in {1..15}; do
+            if curl --fail --silent http://127.0.0.1:8000/health; then
+              exit 0
+            fi
+            sleep 2
+          done
+          exit 1
+
+      - name: API smoke test
+        run: |
+          curl --fail --silent http://127.0.0.1:8000/products
+
+          create_status=$(
+            curl --silent --output /tmp/create-product-response.json --write-out "%{http_code}" \
+              -X POST http://127.0.0.1:8000/products \
+              -H "Content-Type: application/json" \
+              -d '{
+                "productId": "ci-smoke-product-1",
+                "name": "CI Smoke Product",
+                "price": 19.99,
+                "rating": 4,
+                "stockQuantity": 7
+              }'
+          )
+
+          test "$create_status" = "201"
+          grep -q '"name":"CI Smoke Product"' /tmp/create-product-response.json
+
+          invalid_status=$(
+            curl --silent --output /tmp/create-product-invalid-response.json --write-out "%{http_code}" \
+              -X POST http://127.0.0.1:8000/products \
+              -H "Content-Type: application/json" \
+              -d '{
+                "productId": "ci-smoke-product-invalid",
+                "name": "",
+                "price": "abc",
+                "stockQuantity": "xyz"
+              }'
+          )
+
+          test "$invalid_status" = "400"
+          grep -q '"message":"Invalid product input"' /tmp/create-product-invalid-response.json

@@ -1,7 +1,6 @@
 import React from "react";
 import { ExpenseByCategorySummary, useGetDashboardDataQuery } from "@/state/api";
 import { Cell, Pie, PieChart, ResponsiveContainer } from "recharts";
-import { it } from "node:test";
 import { TrendingUp } from "lucide-react";
 
 type ExpenseSums = {

@@ -798,5 +798,101 @@
     "quantity": 259,
     "unitPrice": 368.39,
     "totalAmount": 5611.94
+  },
+  {
+    "saleId": "bbbb0001-bbbb-4bbb-bbbb-bbbbbbbbbbbb",
+    "productId": "bbbbbbbb-bbbb-4bbb-bbbb-bbbbbbbbbbbb",
+    "timestamp": "2026-05-05T10:00:00Z",
+    "quantity": 30,
+    "unitPrice": 20.00,
+    "totalAmount": 600.00
+  },
+  {
+    "saleId": "bbbb0002-bbbb-4bbb-bbbb-bbbbbbbbbbbb",
+    "productId": "bbbbbbbb-bbbb-4bbb-bbbb-bbbbbbbbbbbb",
+    "timestamp": "2026-05-11T10:00:00Z",
+    "quantity": 30,
+    "unitPrice": 20.00,
+    "totalAmount": 600.00
+  },
+  {
+    "saleId": "bbbb0003-bbbb-4bbb-bbbb-bbbbbbbbbbbb",
+    "productId": "bbbbbbbb-bbbb-4bbb-bbbb-bbbbbbbbbbbb",
+    "timestamp": "2026-05-17T10:00:00Z",
+    "quantity": 30,
+    "unitPrice": 20.00,
+    "totalAmount": 600.00
+  },
+  {
+    "saleId": "bbbb0004-bbbb-4bbb-bbbb-bbbbbbbbbbbb",
+    "productId": "bbbbbbbb-bbbb-4bbb-bbbb-bbbbbbbbbbbb",
+    "timestamp": "2026-05-23T10:00:00Z",
+    "quantity": 30,
+    "unitPrice": 20.00,
+    "totalAmount": 600.00
+  },
+  {
+    "saleId": "bbbb0005-bbbb-4bbb-bbbb-bbbbbbbbbbbb",
+    "productId": "bbbbbbbb-bbbb-4bbb-bbbb-bbbbbbbbbbbb",
+    "timestamp": "2026-05-29T10:00:00Z",
+    "quantity": 30,
+    "unitPrice": 20.00,
+    "totalAmount": 600.00
+  },
+  {
+    "saleId": "cccc0001-cccc-4ccc-cccc-cccccccccccc",
+    "productId": "cccccccc-cccc-4ccc-cccc-cccccccccccc",
+    "timestamp": "2026-05-06T10:00:00Z",
+    "quantity": 30,
+    "unitPrice": 30.00,
+    "totalAmount": 900.00
+  },
+  {
+    "saleId": "cccc0002-cccc-4ccc-cccc-cccccccccccc",
+    "productId": "cccccccc-cccc-4ccc-cccc-cccccccccccc",
+    "timestamp": "2026-05-14T10:00:00Z",
+    "quantity": 30,
+    "unitPrice": 30.00,
+    "totalAmount": 900.00
+  },
+  {
+    "saleId": "cccc0003-cccc-4ccc-cccc-cccccccccccc",
+    "productId": "cccccccc-cccc-4ccc-cccc-cccccccccccc",
+    "timestamp": "2026-05-22T10:00:00Z",
+    "quantity": 30,
+    "unitPrice": 30.00,
+    "totalAmount": 900.00
+  },
+  {
+    "saleId": "cccc0004-cccc-4ccc-cccc-cccccccccccc",
+    "productId": "cccccccc-cccc-4ccc-cccc-cccccccccccc",
+    "timestamp": "2026-05-30T10:00:00Z",
+    "quantity": 30,
+    "unitPrice": 30.00,
+    "totalAmount": 900.00
+  },
+  {
+    "saleId": "dddd0001-dddd-4ddd-dddd-dddddddddddd",
+    "productId": "dddddddd-dddd-4ddd-dddd-dddddddddddd",
+    "timestamp": "2026-05-08T10:00:00Z",
+    "quantity": 30,
+    "unitPrice": 40.00,
+    "totalAmount": 1200.00
+  },
+  {
+    "saleId": "dddd0002-dddd-4ddd-dddd-dddddddddddd",
+    "productId": "dddddddd-dddd-4ddd-dddd-dddddddddddd",
+    "timestamp": "2026-05-18T10:00:00Z",
+    "quantity": 30,
+    "unitPrice": 40.00,
+    "totalAmount": 1200.00
+  },
+  {
+    "saleId": "dddd0003-dddd-4ddd-dddd-dddddddddddd",
+    "productId": "dddddddd-dddd-4ddd-dddd-dddddddddddd",
+    "timestamp": "2026-05-28T10:00:00Z",
+    "quantity": 30,
+    "unitPrice": 40.00,
+    "totalAmount": 1200.00
   }
 ]

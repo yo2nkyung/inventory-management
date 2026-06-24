@@ -10,13 +10,47 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.createProduct = exports.getProducts = void 0;
-const client_1 = require("@prisma/client");
-const prisma = new client_1.PrismaClient();
+const prisma_1 = require("../lib/prisma");
+const validateProductInput = (body) => {
+    const errors = [];
+    const { productId, name, price, rating, stockQuantity, } = body;
+    if (typeof productId !== "string" || productId.trim() === "") {
+        errors.push("productId must be a non-empty string");
+    }
+    if (typeof name !== "string" || name.trim() === "") {
+        errors.push("name must be a non-empty string");
+    }
+    if (typeof price !== "number" || !Number.isFinite(price) || price < 0) {
+        errors.push("price must be a non-negative number");
+    }
+    if (rating !== undefined &&
+        rating !== null &&
+        (typeof rating !== "number" || !Number.isFinite(rating) || rating < 0 || rating > 5)) {
+        errors.push("rating must be a number between 0 and 5");
+    }
+    if (typeof stockQuantity !== "number" ||
+        !Number.isInteger(stockQuantity) ||
+        stockQuantity < 0) {
+        errors.push("stockQuantity must be a non-negative integer");
+    }
+    return {
+        errors,
+        product: errors.length === 0
+            ? {
+                productId,
+                name,
+                price,
+                rating,
+                stockQuantity,
+            }
+            : null,
+    };
+};
 const getProducts = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     var _a;
     try {
         const search = (_a = req.query.search) === null || _a === void 0 ? void 0 : _a.toString();
-        const products = yield prisma.products.findMany({
+        const products = yield prisma_1.prisma.products.findMany({
             where: {
                 name: {
                     contains: search,
@@ -26,22 +60,23 @@ const getProducts = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         });
         res.json(products);
     }
-    catch (error) {
+    catch (_b) {
         res.status(500).json({ message: "Error retrieving products" });
     }
 });
 exports.getProducts = getProducts;
 const createProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { productId, name, price, rating, stockQuantity } = req.body;
-        const product = yield prisma.products.create({
-            data: {
-                productId,
-                name,
-                price,
-                rating,
-                stockQuantity,
-            }
+        const { errors, product: validatedProduct } = validateProductInput(req.body);
+        if (errors.length > 0 || !validatedProduct) {
+            res.status(400).json({
+                message: "Invalid product input",
+                errors,
+            });
+            return;
+        }
+        const product = yield prisma_1.prisma.products.create({
+            data: validatedProduct,
         });
         res.status(201).json(product);
     }

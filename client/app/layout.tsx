@@ -1,10 +1,6 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "./globals.css";
 import DashboardWrapper from "./dashboardWrapper";
-import Dashboard from "./dashboard/page";
-
-const inter = Inter({ subsets: ["latin"] });
 
 // const geistSans = Geist({
 //   variable: "--font-geist-sans",
@@ -28,7 +24,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body>
         <DashboardWrapper>{children}</DashboardWrapper>
       </body>
     </html>

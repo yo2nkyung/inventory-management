@@ -1,5 +1,4 @@
 "use client";
-import { Card } from "@mui/material";
 import CardPopularProducts from "./CardPopularProducts";
 import CardSalesSummary from "./CardSalesSummary";
 import CardPurchaseSummary from "./CardPurchaseSummary";

@@ -56,10 +56,26 @@ export interface User {
   email: string;
 }
 
+export interface RecommendationItem {
+  productId: string;
+  productName: string;
+  currentStock: number;
+  avgDailyConsumption: number;
+  daysUntilStockout: number;
+  recommendedReorderQty: number;
+  urgency: "critical" | "warning";
+}
+
+export interface InventoryRecommendations {
+  generatedAt: string;
+  analysisWindowDays: number;
+  recommendations: RecommendationItem[];
+}
+
 export const api = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: process.env.NEXT_PUBLIC_API_BASE_URL }),
   reducerPath: "api",
-  tagTypes: ["DashboardData", "Products", "Users", "Expenses"],
+  tagTypes: ["DashboardData", "Products", "Users", "Expenses", "InventoryRecommendations"],
   endpoints: (build) => ({
     getDashboardData: build.query<DashboardData, void>({
       query: () => "/dashboard",
@@ -88,6 +104,13 @@ export const api = createApi({
       query: () => "/expenses",
       providesTags: ["Expenses"],
     }),
+    getInventoryRecommendations: build.query<InventoryRecommendations, number | void>({
+      query: (days) => ({
+        url: "/inventory-recommendations",
+        params: days ? { days } : {},
+      }),
+      providesTags: ["InventoryRecommendations"],
+    }),
   }),
 });
 
@@ -97,4 +120,5 @@ export const {
   useCreateProductMutation,
   useGetUsersQuery,
   useGetExpenseByCategoryQuery,
+  useGetInventoryRecommendationsQuery,
 } = api;

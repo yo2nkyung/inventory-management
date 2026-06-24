@@ -5,3 +5,6 @@ server/dist/
 client/.env/
 server/.env/
 client/.next/
+.DS_Store
+server/.DS_Store
+server/prisma/.DS_Store

@@ -10,35 +10,34 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getDashboardData = void 0;
-const client_1 = require("@prisma/client");
-const prisma = new client_1.PrismaClient();
+const prisma_1 = require("../lib/prisma");
 const getDashboardData = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const popularProducts = yield prisma.products.findMany({
+        const popularProducts = yield prisma_1.prisma.products.findMany({
             take: 15,
             orderBy: {
                 stockQuantity: "desc",
             },
         });
-        const salesSummary = yield prisma.salesSummary.findMany({
+        const salesSummary = yield prisma_1.prisma.salesSummary.findMany({
             take: 5,
             orderBy: {
                 date: "desc",
             },
         });
-        const purchaseSummary = yield prisma.purchaseSummary.findMany({
+        const purchaseSummary = yield prisma_1.prisma.purchaseSummary.findMany({
             take: 5,
             orderBy: {
                 date: "desc",
             },
         });
-        const expenseSummary = yield prisma.expenseSummary.findMany({
+        const expenseSummary = yield prisma_1.prisma.expenseSummary.findMany({
             take: 5,
             orderBy: {
                 date: "desc",
             },
         });
-        const expenseByCategorySummaryRaw = yield prisma.expenseByCategory.findMany({
+        const expenseByCategorySummaryRaw = yield prisma_1.prisma.expenseByCategory.findMany({
             take: 5,
             orderBy: {
                 date: "desc",
@@ -53,7 +52,7 @@ const getDashboardData = (req, res) => __awaiter(void 0, void 0, void 0, functio
             expenseByCategorySummary,
         });
     }
-    catch (error) {
+    catch (_a) {
         res.status(500).json({ message: "Error retrieving dashboard data" });
     }
 });

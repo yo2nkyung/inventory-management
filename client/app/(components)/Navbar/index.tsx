@@ -5,8 +5,6 @@ import { setIsDarkMode, setIsSidebarCollapsed } from "@/state";
 import { Bell, Link, Menu, Moon, Settings, Sun } from "lucide-react";
 import React from "react";
 
-type Props = {};
-
 const Navbar = () => {
   const dispatch = useAppDispatch();
   const isSidebarCollapsed = useAppSelector(

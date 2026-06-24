@@ -3,6 +3,11 @@ import fs from "fs";
 import path from "path";
 const prisma = new PrismaClient();
 
+type SeedModel = {
+  create: (args: { data: unknown }) => Promise<unknown>;
+  deleteMany: (args?: unknown) => Promise<unknown>;
+};
+
 async function deleteAllData(orderedFileNames: string[]) {
   const modelNames = orderedFileNames.map((fileName) => {
     const modelName = path.basename(fileName, path.extname(fileName));
@@ -10,7 +15,9 @@ async function deleteAllData(orderedFileNames: string[]) {
   });
 
   for (const modelName of modelNames) {
-    const model: any = prisma[modelName as keyof typeof prisma];
+    const model = prisma[modelName as keyof typeof prisma] as unknown as
+      | SeedModel
+      | undefined;
     if (model) {
       await model.deleteMany({});
       console.log(`Cleared data from ${modelName}`);
@@ -37,13 +44,15 @@ async function main() {
     "expenseByCategory.json",
   ];
 
-  await deleteAllData(orderedFileNames);
+  await deleteAllData([...orderedFileNames].reverse());
 
   for (const fileName of orderedFileNames) {
     const filePath = path.join(dataDirectory, fileName);
     const jsonData = JSON.parse(fs.readFileSync(filePath, "utf-8"));
     const modelName = path.basename(fileName, path.extname(fileName));
-    const model: any = prisma[modelName as keyof typeof prisma];
+    const model = prisma[modelName as keyof typeof prisma] as unknown as
+      | SeedModel
+      | undefined;
 
     if (!model) {
       console.error(`No Prisma model matches the file name: ${fileName}`);

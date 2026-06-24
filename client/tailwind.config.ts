@@ -26,20 +26,31 @@ const shadeMapping = {
     "900": "50",
 };
 
-const generateThemeObject = (colors: any, mapping: any, invert = false) => {
-    const theme: any = {};
+type ThemeColors = Record<string, Record<string, string>>;
+type ShadeMapping = Record<string, string>;
+
+const generateThemeObject = (
+    palette: ThemeColors,
+    mapping: ShadeMapping,
+    invert = false
+) => {
+    const theme: ThemeColors = {};
     baseColors.forEach((color) => {
         theme[color] = {};
-        Object.entries(mapping).forEach(([key, value]: any) => {
+        Object.entries(mapping).forEach(([key, value]) => {
             const shadeKey = invert ? value : key;
-            theme[color][key] = colors[color][shadeKey];
+            theme[color][key] = palette[color][shadeKey];
         });
     });
     return theme;
 }
 
-const lightTheme = generateThemeObject(colors, shadeMapping);
-const darkTheme = generateThemeObject(colors, shadeMapping, true);
+const lightTheme = generateThemeObject(colors as unknown as ThemeColors, shadeMapping);
+const darkTheme = generateThemeObject(
+    colors as unknown as ThemeColors,
+    shadeMapping,
+    true
+);
 
 const themes = {
     light: {

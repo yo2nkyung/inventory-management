@@ -243,5 +243,33 @@
     "price": 969.47,
     "rating": 3.66,
     "stockQuantity": 248630
+  },
+  {
+    "productId": "aaaaaaaa-aaaa-4aaa-aaaa-aaaaaaaaaaaa",
+    "name": "Test Widget A (out of stock)",
+    "price": 10.00,
+    "rating": 4.0,
+    "stockQuantity": 0
+  },
+  {
+    "productId": "bbbbbbbb-bbbb-4bbb-bbbb-bbbbbbbbbbbb",
+    "name": "Test Widget B (critical ~2 days)",
+    "price": 20.00,
+    "rating": 4.0,
+    "stockQuantity": 10
+  },
+  {
+    "productId": "cccccccc-cccc-4ccc-cccc-cccccccccccc",
+    "name": "Test Widget C (warning ~5 days)",
+    "price": 30.00,
+    "rating": 4.0,
+    "stockQuantity": 20
+  },
+  {
+    "productId": "dddddddd-dddd-4ddd-dddd-dddddddddddd",
+    "name": "Test Widget D (safe, 333 days)",
+    "price": 40.00,
+    "rating": 4.0,
+    "stockQuantity": 1000
   }
 ]

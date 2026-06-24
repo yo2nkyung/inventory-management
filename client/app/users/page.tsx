@@ -2,7 +2,6 @@
 
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { useGetUsersQuery } from "@/state/api";
-import { useState } from "react";
 import Header from "@/app/(components)/Header";
 
 const columns: GridColDef[] = [
