@@ -73,7 +73,7 @@ export interface InventoryRecommendations {
 }
 
 export const api = createApi({
-  baseQuery: fetchBaseQuery({ baseUrl: process.env.NEXT_PUBLIC_API_BASE_URL }),
+  baseQuery: fetchBaseQuery({ baseUrl: "/api" }),
   reducerPath: "api",
   tagTypes: ["DashboardData", "Products", "Users", "Expenses", "InventoryRecommendations"],
   endpoints: (build) => ({
